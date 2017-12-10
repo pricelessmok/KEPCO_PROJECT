@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'evm',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,13 +73,23 @@ WSGI_APPLICATION = 'kepco.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'polls',
+            'USER': 'root',
+            'PASSWORD': 'Ce)6413632#',
+            'PORT':'3306',
+            'HOST':'35.189.150.140'
+        }
     }
-}
+DATABASES['default']['HOST'] = '/cloudsql/smartcity-20171209:asia-northeast1:smartcity'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    DATABASES['default']['HOST'] = '127.0.0.1'
 
 
 # Password validation
